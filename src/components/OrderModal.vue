@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
+import OrderForm from './OrderForm.vue'
+import ClearIcon from './ui/icons/ClearIcon.vue'
 </script>
 
 <template>
@@ -9,36 +11,53 @@ import { VueFinalModal } from 'vue-final-modal'
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
   >
-    <h1>Hello</h1>
+    <button class="order-modal__close-btn" @click="$emit('confirm')">
+      <ClearIcon />
+    </button>
+    <OrderForm @success-submit="$emit('confirm', $event)" />
   </VueFinalModal>
 </template>
 
 <style>
 .order-modal {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 1rem 4rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
 }
 .order-modal__content {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
+  overflow-y: auto;
+  max-height: 100%;
   background: #fff;
-  border-radius: 0.5rem;
 }
-.order-modal__content > * + * {
-  margin: 0.5rem 0;
-}
-.order-modal__content h1 {
-  font-size: 1.375rem;
-}
-.order-modal__content button {
-  margin: 0.25rem 0 0 auto;
-  padding: 0 8px;
-  border: 1px solid;
-  border-radius: 0.5rem;
-}
-.dark .order-modal__content {
-  background: #000;
+
+.order-modal__close-btn {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 5;
+  top: 2rem;
+  right: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 3.6rem;
+  height: 3.6rem;
+  padding: 0;
+
+  appearance: none;
+  background: none;
+  border: none;
+  border-radius: 25px;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 }
 </style>
